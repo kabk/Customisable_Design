@@ -2,18 +2,23 @@ Thesis_Grafischontwerpen2014-2015
 =================================
 
 ### Inleiding.
+
 ### Hoofdstuk 1, Aanpasbaar Ontwerp. 
 -  Tijd periode 1, Ambachten.
 -  Tijd periode 2, Industriële revolutie.
 -  Nu, 3d Printen.
 -  Toekomst.
+
 ### Hoofdstuk 2, Interviews.
+
 ### Hoofdstuk 3, Delen.
 -  OPEN SOURCE.
 -  Mods.
+
 ### Hoofdstuk 4, Keuzes.
 -  Personaliseren.
 -  identiteit
+
 ### Conclusie.
 
 
