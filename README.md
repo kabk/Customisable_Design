@@ -1,24 +1,20 @@
-tim_costimiseble
-
-================
-
 Thesis_Grafischontwerpen2014-2015
+=================================
 
-
-Inleiding.
-Hoofdstuk 1, Aanpasbaar Ontwerp. 
-	Tijd periode 1, Ambachten.
-	Tijd periode 2, Industriële revolutie.
-	Nu, 3d Printen.
-	Toekomst.
-Hoofdstuk 2, Interviews.
-Hoofdstuk 3, Delen.
-	OPEN SOURCE.
-	Mods.
-Hoofdstuk 4, Keuzes.
-	Personaliseren.
-	identiteit
-Conclusie.
+### Inleiding.
+### Hoofdstuk 1, Aanpasbaar Ontwerp. 
+-  Tijd periode 1, Ambachten.
+-  Tijd periode 2, Industriële revolutie.
+-  Nu, 3d Printen.
+-  Toekomst.
+### Hoofdstuk 2, Interviews.
+### Hoofdstuk 3, Delen.
+-  OPEN SOURCE.
+-  Mods.
+### Hoofdstuk 4, Keuzes.
+-  Personaliseren.
+-  identiteit
+### Conclusie.
 
 
 Kop: Heeft ‘Customisable Design’ een glansrijke toekomst en wat is de rol van de (graphic) designer? 
@@ -147,23 +143,22 @@ Subject: Customisable (graphic) design.
 ———————————————————————————————————————————————————————————
 
 Sourses:
-Tegenlicht aflevering, De nieuwe makers
-Tegenlicht aflevering, Gratis geld
-http://tegenlicht.vpro.nl/afleveringen/2014-2015/de-nieuwe-makers.html
-Ted Talk, Ken Robinson
-Print the legend, Luis Lopez, J. Clay Tweel
-VideoGame the movie, Jeremy Snead
+-  Tegenlicht aflevering, De nieuwe makers
+-  Tegenlicht aflevering, [Gratis geld](http://tegenlicht.vpro.nl/afleveringen/2014-2015/de-nieuwe-makers.html)
+-  Ted Talk, Ken Robinson
+-  Print the legend, Luis Lopez, J. Clay Tweel
+-  VideoGame the movie, Jeremy Snead
 
 Boeks,
-Understanding design, Kees Dorst
-Dutch Design, Toon Lauwen.
-Het Kant en klaren huis, Daan bakker en Christian Rapp
-Everyone is a Designer, in the Age of Social Media, Mieke Gerritsen
-Time Magazin, 2 feb 1996
+-  Understanding design, Kees Dorst
+-  Dutch Design, Toon Lauwen.
+-  Het Kant en klaren huis, Daan bakker en Christian Rapp
+-  Everyone is a Designer, in the Age of Social Media, Mieke Gerritsen
+-  Time Magazin, 2 feb 1996
 
 Internet.
-http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox
-http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender)
+-  <http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox>
+-  <http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender)>
 
 ———————————————————————————————————————————————————————————
 
@@ -171,7 +166,8 @@ http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender)
 
 ———————————————————————————————————————————————————————————
 
-Technisch vooruitgang
+## Technisch vooruitgang
+
 We leven in een tijd waar de technologie ons leven veranderd. Fotografie bijvoorbeeld, is toegankelijk voor iedereen, terwijl dit vroeger een heel technisch beroep was. Het bereken van de belichting en de chemische processen voor het ontwikkelen van de foto in de donkere kamer vergde enige studies. Reisde je honderd jaar geleden nog naar een fotograaf in een grote stad voor een portret of een familiefoto. Vandaag de dag heeft iedere mobile telefoon wel een fotocamera standaard ingebouwd. Nu vraag je de buurman of gebruik je de zelfontspanner van je camera of telefoon om een groepsfoto te maken. De techniek in de camera zorgt ervoor dat de kleuren sprankelend zijn, de juiste belichting en scherpte scherpte zijn ingesteld. Het nemen van een foto is een kwestie van een druk op een knop. Het is aan jou als maker of de foto interessant of de moeite waard is. Ben je bereid er energie in de stoppen, heb je een kleinbeetje inzicht, ben je creatief. Technisch kan er niets meer misgaan en het maken van een foto kost helemaal niets. 
 
 Techniek wordt toegankelijker voor iedereen. Het verschil tussen professioneel en consument wordt steeds kleiner door alle technische hulpmiddelen. Technologie is en wordt makkelijke om te gebruiken. Als techniek geen rol meer speelt, kunnen mensen zich dan makkelijker creatief onderscheiden en ontwikkelen?
