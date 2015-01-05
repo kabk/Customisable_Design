@@ -7,10 +7,14 @@
  */
 
 html {
-  font-family: sans-serif; /* 1 */
+	font-family: 'Open Sans', sans-serif;
+  font-size: medium; /* 1 */
+  color: gray;
+  text-align: left;
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
+
 
 /**
  * Remove default margin.
@@ -86,15 +90,36 @@ template {
 
 a {
   background: transparent;
+  color: grey;
 }
 
 /**
  * Improve readability when focused and also mouse hovered in all browsers.
  */
 
-a:active,
+
+/* unvisited link */
+a:link {
+    color: gray;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: gray;
+    text-decoration: none;
+}
+
+/* mouse over link */
 a:hover {
-  outline: 0;
+    color: #4c4c4c;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: #b46666;
+    text-decoration: none;
 }
 
 /* Text-level semantics
@@ -131,9 +156,27 @@ dfn {
  */
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+ 	font-family: "Open Sans";
+ 	font-weight: 600;
+ 	font-size: x-large;
+ 	margin: 0px 0px 5px 0px;
 }
+
+h2 {
+ 	font-family: "Open Sans";
+ 	font-weight: 600;
+ 	font-size: x-large;
+ 	margin: 0px;
+}
+
+ h3 {
+ 	font-family: "Open Sans";
+ 	font-weight: 300;
+ 	font-style: italic;
+ 	font-size: small;
+ 	margin: 0px;
+}
+
 
 /**
  * Address styling not present in IE 8/9.
@@ -206,10 +249,13 @@ figure {
  * Address differences between Firefox and other browsers.
  */
 
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
+hr { 
+	width: 200px;
+	background-color: gray;
+	height: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
 }
 
 /**

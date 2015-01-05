@@ -1,204 +1,882 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<!-- ** see note -->
 
-    <head>
-        <!-- The classical Cartesian distinction, head and body! In the head comes all the metadata page needs to function-->
+<html>
+<head>
+	<title>Tim van Remundt | Customisable Design</title>
+	
+	<!-- Link stylesheets!-->
 
-        <title>Customisable design</title> <!-- This is the title shown in the Window bar -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" /> <!-- This normalize.css file takes care of some inconsistencies between browsers -->
+	<link rel="stylesheet" type="text/css" href="css/style.css" /><!-- Here I put the rest of my styles-->
 
-        <meta charset="utf-8"> <!-- You need this so the browser can understand ‘typographic quotes’ and accented characters éëê etc.-->
+	<!-- Google font !-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600' rel='stylesheet' type='text/css'>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- This tag is important if we make a responsive site
-                                                                                  see http://kabk.github.io/govt4-coding/responsive-layout.html -->
 
-        <meta name="description" content="This is where you can put a short description of the page. Google will sometimes display this, and Facebook uses it to display in a link preview.">
+	<!-- Add jQuery library -->
+	<script type="text/javascript" src="lib/jquery-1.9.0.min.js"></script>
+
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="source/jquery.fancybox.js?v=2.1.4"></script>
+	<link rel="stylesheet" type="text/css" href="source/jquery.fancybox.css?v=2.1.4" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+
+	<script type="text/javascript">
+$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
+
+
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+    </script>
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+
+body {
+	background-image: url(aftelpaginafoto.jpg);
+	background-repeat: no-repeat;
+	bottom: 0;
+	height: auto;
+	background-position: center bottom;
+
+}
+    </style>
+		
+		
+		
+	
+</head><body onLoad="MM_preloadImages('text-aftertheshow-knop.png')">
+
+
+<div id="totaal" align="center">
+	<div id="grfoto">
+		<img src="images/ZuchtNo4publiektekst.jpg" alt="1" style="width:100%">
+	</div>
+	<div id="textbreed" align="left">
+			<div id="textbij" align="left">
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/e008442193.jpg" title=""><img src="images/e008442193.jpg" alt="" width="100%"/></a>
+			</div>
+			</br> Afbeelding van een Duitse man met ossen wagen.</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+			
+Rond 1750 begint in Engeland de industriële revolutie. In het begin van de 19de eeuw verspreid het fenomeen zich over de rest van Europa. Ambachtelijke en kleinschalige werkplaatsen groeien uit tot grote fabrieken en vormden samen de industrie. Door die groei daalt de kostprijs van producten enorm. Hierdoor kunnen steeds meer mensen zich deze producten veroorloven. Een neven effect van grootschalige productie is het lastig implementeren van variabele. Het gevolg hiervan is de spreekwoordelijke eenheidsworst.</br>
+</br>
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/henry_ford_with_the_model_t.jpg" title=""><img src="images/henry_ford_with_the_model_t.jpg" alt="" width="100%"/></a>
+			</div>
+</br> 
+Foto Henry Ford </br>
+Bijschrift. </br>
+‘U kunt bij ons de T-Ford in alle kleuren kopen, zolang het maar zwart is’. Aldus Henry Ford.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/zigeunerin_met_rode_hoofddoek.jpg" title=""><img src="images/zigeunerin_met_rode_hoofddoek.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Schilderijtje van Zigeunerin</br>
+Bijschrift.</br>
+Het is nog niet zolang geleden dat je in de Nederlandse arbeidersbuurten in bijna ieder huis een schilderij van een Zigeunerin of het jongetje met traan kon zien hangen. Naar deze voorstelling was zoveel vraag dat ze in een Italiaans bedrijfje in Toscane aan de lopende band geschilderd werden met echte olieverf op echt canvas. Naar schatting zijn er enkel al in Nederland een kleine vijfduizend van deze doekjes verkocht.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/Piet-Zwart-werkkamer-verkleind-52.jpg" title=""><img src="images/Piet-Zwart-werkkamer-verkleind-52.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+De eerste grafisch ontwerpers. Door de stortvloed van verschillende producten, die allemaal een plekje op de consumentenmarkt zoeken, neemt de behoefte aan communicatie toe. Vanuit alle hoeken en gaten kruipen de ontwerpers omhoog. Iedereen die een beetje kan tekenen heeft werk. Er ontstaat een enorme vraag naar mensen die op een pakkende manier een product kunnen neerzetten. Ook mensen uit de kunstwereld zien kansen. Een mooi voorbeeld is Piet Zwart. Voordat hij grafisch ontwerper werd werkte hij als architect. Ook de schilder Paul Schuitema werd grafisch ontwerper. In 1930 werd op de Koninklijke Academie van Beeldende Kunsten in Den Haag door de directeur Dr. Ir. J.H. Plantenga en Gerard Kiljan de opleiding voor reclametekenaar gestart. Gerard Kilian, Die eerst lithograaf was ging les geven.</br>
+			</div>
+			<div id="texthoofd" align="left">
+		</br>
+		
+</br>
+</br>
+<h1>De carrièreswitsch </h1>
+In Elberfeld in het district Wuppertal woont de houthakker Heins von Berghaus. Iedere morgen trekt hij met bijl en boomzaag op zijn Ossenwagen de bossen in om ’s avonds afgeladen in het dorp terug te keren. Ook die morgen - een mooie dag in 1770 - is dat niet anders. Heins heeft het druk. Alle inwoners van het dorp willen hun houtvoorraad aanvullen. Ze verwachten een strenge winter. Het zijn drukke tijden. Heins is de enige houthakker in de hele omgeving. Dat is niet zo gek want het hout levert weinig op. Omdat Heins een vrouw en vijf kinderen moet onderhouden maakt hij ook lepels. Stevige houten pol- pap- en soeplepels. De mooiste takken houd hij daarvoor apart. Als het weer slecht is of als er weinig vraag naar hout is vind je Heins in zijn schuur naast het huis. Daar zaagt en hakt hij dan lepels in allerlei soorten en maten.</br>
+De handel in lepels loop zo goed dat de vrouw van Heins zich afvraagt of het misschien niet beter is dat Heins zich voortaan alleen op de lepels gaat storten. Zij ziet hem dan vaker en kan beter voor hem zorgen. Heins zelf doet het werk graag en de dagen zijn minder lang. Bovendien kan Heins even bij springen als zij z’n spierkracht kan gebruiken.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>Werken in opdracht</h1>
+Na een paar maanden draait Heins z’n lepelbedrijf al lekker. Er ontstaat zelfs een voorraad. In de zomer van 1776 wordt het tijd dat
+de oudste zoon eens de handen uit de mouwen gaat steken. Drie dagen per week gaat Heins junior met een ossenwagen vol lepels naar verschillende markten in de omliggende dorpen. De zaken gaan goed en er wordt verkocht en geïnvesteerd. Er wordt beter en meer gereedschap aangeschaft. De kliefbijl, de zaag en de schuurband worden os aangedreven en binnen een jaar staan de lepels van Heins bekend als die Löffel von Berghaus.</br>
+Als Heins een grote opdracht van Gästehaus Schäfer in Düsseldorf aan de rijn krijgt, is zijn agenda voor 4 maanden gevuld. Hij mag naast de lepels ook lepelrekken en lepelbakken maken. Het gasthuis wil ook het Schäfer wapen in de rug van de lepels gesneden hebben. Verder moeten de lepels slanker en eleganter. Gunther, de tweede zoon van Heins zorgt voor versterking. Ook diens verloofde Isabelle sluit zich aan. Zij snijdt met grote precisie het wapen in de lepels. Met veel liefde en vakmanschap wordt er gewerkt aan een uniek product en al snel volgt er meer werk van opdrachtgevers die iets speciaals willen.</br>
+De von Berghaus lepels worden steeds fraaier en verfijnder. Er zijn zelfs mensen die de lepel als versiering aan de wand hangen.</br>
+</br>
+<h1>Technisch ontwikkelingen</h1>
+Als Heins junior op een avond in 1778 thuiskomt met een Engelse lepel van edelmetaal, wordt de familie von Berghaus geconfronteerd met een heel nieuwe uitdaging. Metaal is modern, sterk en als je het op de juiste manier verwerkt en bewerkt kun je er prachtige lepels van maken. Bovendien kent metaal minder beperkingen. Messen, vorken en andere gereedschap is ook prima mogelijk. De welgestelden zullen zeer geïnteresseerd zijn en bovendien zal de vraag naar houten lepels niet stijgen. Iedereen realiseert zich wel dat er in metaal veel meer toekomst zit en met een heel nieuwe generatie von Berghaus aan de poort is een overstap zeker aan te bevelen. Voorzichtig wordt er gestart met een gieterij en een slijperij. Later ook een smederij en een graveerderij.</br>
+In 1790 werken er bij von Berghaus meer dan 50 mensen. Hierdoor wordt het tijd de taken onder de leidinggevenden goed te verdelen. Er moet een betere bedrijf structuur komen. Productie, productont- wikkeling en verkoop zijn de drie belangrijkste disciplines. Het is van groot belang dat werknemers zich specialiseren en expert worden op hun vakgebied. De klanten van von Berghaus worden steeds kritischer. Zij eisen een excellent product maar wel voor een redelijke prijs.</br>
+</br><br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>Uitbreiding van de markt</h1>
+Het is niet meer alleen de adel die geïnteresseerd is in een mooi bestek. De welvaart stijgt en steeds meer mensen hebben interessen in iets moois naast het bord. Om die reden besluit von Berghaus niet alleen meer op bestelling te blijven werken maar ook series te gaan produceren. Het bedrijf opent een fabriek in Solingen speciaal voor het maken van bestek in grote hoeveelheden. Daar worden inkoop en automatisering de grootste afdelingen. Er komt ook een afdeling personeelszaken en financiën bij. Het wordt steeds belangrijker dat alle processen in het bedrijf goed lopen. Een slechte week of een fout in de productie was vroeger makkelijk op te vangen. Inmiddels kan zoiets een enorm probleem worden. Ook wordt er een vormgever aangenomen. Op zijn gevoel en aan de hand van advies van verkopers ontwerpt hij de nieuwe modellen. Een nieuw ontwerp heeft altijd eerst een kleine oplage. Als blijkt dat een deze aanslaat, wordt een grote oplage geproduceerd. Vaak verschijnen er na verloop van tijd binnen het ontwerp ook meerdere varianten.</br>
+Het nut van en goede presentatie wordt ook onderkent. Het bestek gaat naar de klant in prachtige houten koffers. Het interieur wordt bekleed met kobaltblauwe valoer. De buitenzijde van de koffer is blank gelakt en op het deksel prijkt een in goud uitgevoerd von Berghaus logo. Afhankelijk van de omvang van het bestek heeft de koffer drie of vijf laden.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>Industrialisatie</h1>
+Von Berghaus Groeit snel. Vooral de serieproducten zijn succesvol en genereren een enorme winst. Om een goed bestuur te waarborgen volgt een twee deling van het bedrijf. Von Berghaus Tischgarnitur en Von Berghaus Speziell. De houten lepelfabriek wordt een museum en het maken van de koffers wordt uitbesteed. Von Berghaus Speziell produceert op bestelling unieke stukken en blijft op de huidige locatie. Von Berghaus Tischgarnitur gaat naar een nieuw grotere hypermoderne locatie en gaat zich uitsluitend richten op het topsegment. Exclusieve topkwaliteit, geproduceerd in grote hoeveelheden.</br>
+Von Berghaus Tischgarnitur groeit in het midden van de 20ste eeuw explosief. Het merk is toonaangevend. Zuid Europa, Azië, de Verenigde Staten en het zuiden van Australië vormen de belangrijkste afzet gebieden. Om het merk ook in het buitenland te promoten wordt een afdeling voor marketing en communicatie in het leven geroepen. Export is de snelst groeiende afdeling binnen Von Berghaus Tischgarnitur. Von Berghaus Speziell groeit nauwelijks en is een aantal jaren niet winstgevend. Toch wordt het bedrijf - soms met steun - draaiende gehouden. Buiten het zeer exclusieve product levert het bedrijf ook veel kennis en prestige.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>Customisable Design</h1>
+Aan het begin van de 21ste eeuw verdampt het aureool van Von Berghaus. De vraag naar een degelijk product, iets waar een mens zijn hele leven mee kan doen, is niet bon ton. De oplossing voor de afnemende populariteit van Von Berghaus wordt gevonden in het fenomeen Customisable Design. Customisable Design geeft de con- sument inspraak in wat hij koopt. Je zou kunnen zeggen dat de koper de producent precies laat maken wat hij zelf bedacht heeft.</br>
+De koper bepaald het ontwerp, de materialen die gebruikt worden, de wijze van bewerken en de hoeveelheid van de verschillende stukken. Uiteindelijk bepaald de koper ook de wijze waarop zijn bestelling wordt verpakt en dus ook de kostprijs.</br>
+Dankzij talloze moderne technieken, een minutieus werkende auto- matisering van de productie en de logistiek is dat nu bij Von Berghaus mogelijk.</br>
+Op de website van Von Berghaus vind de koper alle mogelijke opties. Von Berghaus bied meer dan twaalf materiaal type, talloze vormgevingsopties, kleurcombinaties en bewerkingen. Door bewerkingen als graveren en etsen kun je je bestek van je eigen patroon voorzien. Volgens ingewikkelde berekeningen zijn er meer dan een miljoen variabele, zonder daar het graveren en etsen in mee te tellen natuurlijk. Op de site vind je ook tal van instructie filmpjes en documentaires. Je kunt chatten en er is een helpdesk. Het is zelfs mogelijk om de fabricage van jouw bestek in de fabriek te volgen.</br>
+Eens per jaar is er een onafhankelijke jury die uit alle bestellingen het meest ingenieuze ontwerp selecteert. De ontwerpen worden ingedeeld in de categorieën klassiek, retro, modern, extravagant en futuristisch.</br></br></br>
+</br>
+	</div>
+	</div>
+	<div id="grfoto">
+		<img src="images/galerie.jpg" alt="2" style="width:100%">
+	</div>
+	<div id="textbreed" align="left">
+</br>
+</br>			<div id="textbij" align="left">
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br>
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/apple_watch_iwatch_2.jpg" title=""><img src="images/apple_watch_iwatch_2.jpg" alt="" width="100%"/></a>
+			</div>
+</br> 
+Op de foto het horloge van Apple. Het heeft verschillende opties, waaronder een groot assortiment digitale wijzerplaten en met de verschillende bandjes kan je veel sferen creëren.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/01_interface.jpg" title=""><img src="images/01_interface.jpg" alt="" width="100%"/></a>
+			</div>
+</br> 
+Bijschrift.</br>
+Dit is de website van de Hema voor het maken van een fotoboek Waarin je tot in detail je boek kan personaliseren.</br>
+</br></br>
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/apple.jpg" title=""><img src="images/apple.jpg" alt="" width="100%"/></a>
+			</div>
+</br></br>
+			<div id="fotomid">
+<a class="fancybox-effects-a" href="images/iphoto-photobook-poster.jpg" title=""><img src="images/iphoto-photobook-poster.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Een fotoboek gemaakt met iPhoto, een programma wat gratis wordt geleverd met iedere mac computer. Waar me je zelfde ongeveer het effect kan berijken. </br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/veronica_siffel2.jpg" title=""><img src="images/veronica_siffel2.jpg" alt="" width="100%"/></a>
+			</div>
+			
+</br>
+Bijschrift.</br>
+Een fotoboek gemaakt met iPhoto, een programma wat gratis wordt geleverd met iedere mac computer. Waar me je zelfde ongeveer het effect kan berijken. </br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/24.jpg" title=""><img src="images/24.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Foto</br>
+Radio Veronica medewerker aan boord van het schip in de studioruimte.</br></br></br></br>
+			</div>
+</br>
+<div id="texthoofd" align="left">
+<h1>De eerste voorbeelden van Customisable Design</h1>
+Een eerste voorbeeld van Customisable Design is misschien Nike iD. Rond 2000 kwam Nike met de Customisable Design shoe. Via het internet bestelde je een (port)schoen die je qua kleur zelf had vormgegeven. Van alle randjes en stiksels mocht je zelf de kleur bepalen die je kon kiezen uit verschillende kleurpaletten. De kers op de taart was je naam of die van je vriend of vriendin die er in borduurletters op wert gestikt. Intussen is het ook mogelijk je sportkleding of sporttas zelf in te kleuren en van naam te voorzien.</br>
+</br>
+			<div id="kolomm">
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/NikeID_interface_jonathansin_2.jpg" title=""><img src="images/NikeID_interface_jonathansin_2.jpg" alt="" width="100%"/></a>
+				</div>
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/NikeID_interface_jonathansin_3.jpg" title=""><img src="images/NikeID_interface_jonathansin_3.jpg" alt="" width="100%"/></a>
+				</div>
+			</div>
+</br>
+			<div id="kolomm">
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/NikeID_interface_jonathansin_4.jpg" title=""><img src="images/NikeID_interface_jonathansin_4.jpg" alt="" width="100%"/></a>
+				</div>
+			</div>
+			
+</br></br>
+
+
+<h1>Wat is Customisable Design?</h1>
+De term Customisable design wordt gebruikt om aan te geven dat een product of dienst aangepast kan worden aan de individuele wensen van een koper of gebruiker. Op uiterlijke kenmerken maar ook op functionele. In de dienste sector worden al tientallen jaren producten aangeboden die op het individu kunnen worden toegesneden. Op materieel gebied is dit technisch en logistiek veel lastiger. Door nieuwe technieken is Customisable Design in steeds meer sectoren mogelijk.</br>
+Een eenvoudig voorbeeld van Customisable Design is misschien het Swatch horloge. Swatch maakte voor een bepaald type horloge verschillende kastranden en bandjes. Door gebruik te maken van een eenvoudig klick-systeem waren deze onderdelen uitwisselbaar. Zo was het mogelijk om met één uurwerk, tientallen horloges te creëren. Handig, voor elke kleur outfit een passend horloge.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br>
+Technisch en logistiek veel complexer is het fotoboek. Een van de aanbieders van dit product is Hema. Als je de website van dit warenhuis bezoekt en doorklikt naar fotoboek, kun je zien hoe je op een relatief eenvoudige manier je eigen boek kunt maken. Je kunt kiezen uit verschillende basis lay-outs en boekformaten. Wil je een hardcover of softcover. Glanzend of mat papier. Je kunt zelfs kiezen uit verschillende papierkwaliteiten. Ook krijg je tips over interessante thema’s als vakantie, familie, baby of trouwboeken en uitleg over hoe je je foto’s het beste in de gekozen lay-out plaatst. Binnen enkele werkdagen valt het boek op de deurmat in de oplage die je heb doorgegeven. Meest opvallend is de zeer schappelijke prijs. Het is bijna af te raden om nog enkele foto’s te printen.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/Zeeman_destroy_your jeans_DYJ_Billboard.jpg" title=""><img src="images/Zeeman_destroy_your jeans_DYJ_Billboard.jpg" alt="" width="100%"/></a>
+			</div>
+</br></br>
+Voor mij is de actie “destroy your jeans” van zeeman, het allerleukste voorbeeld dat ik kan bedenken als het gaat om customisable design. Ze geven met deze actie ook hun mening over de verkrachte jeans die je voor veel geld kunt aanschaffen in sommige andere winkels. Bij zeeman zijn de jeans heel sterk en fonkel nieuw. Wil je er toch gaten in, dan staat er op de afdeling een stevig houten tafel met een bak gereedschap. Daar kun je je bod vieren op je nieuwe jeans door gebruik te maken van schuurpapier, staalborstel, hamer en stanleymes. Je verdiend dan al snel een dikke honderd euro.</br>
+</br>
+<h2>Customisable Design overpeinzingen:</br>
+Is het denkbaar dat leken door middel van Customisable Design een goed ontwerp kunnen maken of blijft het altijd de taak van de professional?</br>
+Nike was in 1999 een van de eerste die de Customisable schoen op de markt heeft gebracht. Wat heeft het merk opgeleverd en heeft het op het gebied van design verrassingen opgeleverd?</br>
+Wat komt de behoefte van mensen vandaan zich te willen onderscheiden en wat zijn de gevolgen van deze drang?</br>
+Geef je als (grafisch)ontwerper door gebruik te maken van Customisable Design het eindresultaat uit handen en als dat zo is is dat dan een probleem?</br>
+Heeft Customisable Design toekomst of is er spraken van een hype?</br>
+Welke rol is er weg gelegd voor de (graphic)designer als Customisable Design een grote groei doormaakt?</h2></br>
+</br>
+<h1>De effecten van Customisable Design</h1>
+Customisable Design heeft ook veel voordelen voor de producent. Eén daar van is het contact met de klant. Door dat de gebruiker zijn wensen aan de producent kenbaar maakt kan er tussen hen een dialoog ontstaan. Die dialoog geeft de producent inzicht in de wensen van de klant. Als de producent goed met deze informatie omgaat kan er een band ontstaan. Als klant het gevoel hebben bijzonder te zijn doordat er naar hem geluisterd wordt en de producent er voor hen is, verhoogt dat de sympathie voor een merk. Het gevolg daarvan is vaar merkvoorkeur of merkentrouw. Sympathie voor een merk heeft als gevolg dat de consument niet alleen op prijs selecteert.</br>
+Radio Veronica is misschien een mooi voorbeeld van een organisatie die de dialoog zocht met haar luisteraars.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+In de jaren 60 van de vorige eeuw had de Nederlandse radioluisteraar de beschikking over twee zenders. Hilversum 1 en Hilversum 2. Deze radiozenders werden gerund door radiomakers die degelijke programma’s maakten. De Nederlandse staat financierde de zenders. De zenders hadden beide min-of-meer hetzelfde aanbod. Nieuws, opinie en lichte muziek. De muziek was veelal van Franse of Duitse origine. Beide zenders waren uitsluitend aan het zenden.</br>
+Veronica was nieuw in de ether. Omdat ze bij wet verboden waren hadden zij de status van radiopiraat, Zij zonden hun programma’s
+uit vanaf een schip in de Noordzee. De radiomakers waren rond de twintig en de technici misschien een paar jaar ouder. De zender werd in de lucht gehouden door inkomsten uit advertenties. Het grote voorbeeld was America. Qua radio en TV liep America tientallen jaren voor op Europa. Omdat Veronica zelf voor haar inkomsten moest zorgen dachten ze veel commerciëler en waren zijn veel meer naar buiten gericht dan hun collega’s in Hilversum. Zij hadden bijvoorbeeld banden met de grote bedrijven in Nederland. De band met platenmaatschappijen zorgde voor hitparades en alarmschijven. Ze namen programma’s op, op locaties in het hele land. De DJ’s van Veronica draaide hun muziek in de grote clubs en op grote feesten. Ze organiseerde tal van evenementen voor en met hun luisteraars. Niet zelden was er contact met de luisteraar tijdens de uitzending. Allerlei zelf bedachte vaste items gaven daartoe aanleiding. Je zou kunnen zeggen dat Veronica in de jaren 60 al Customisable Radio maakten.</br></br></br>
+</br>
+	</div></div>
+	<div id="grfoto">
+		<img src="images/galerie.jpg" alt="2" style="width:100%">
+	</div>
+	<div id="textbreed" align="left">
+</br>
+
+			<div id="textbij" align="left">
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/politie-suf-uniform-beu-klein.jpg" title=""><img src="images/politie-suf-uniform-beu-klein.jpg" alt="" width="100%"/></a>
+			</div>
+			</br> 
+Bijschrift.</br>
+Een foto van een vrouw in een Nederlands politie uniform van 2010 en de uniformen van 18 andere landen. Ze willen met hun uniformen ge- zag uit stralen en duidelijk laten weten dat zei de wet handhaven. De persoon identificeert zichzelf onderdeel van een eenheid en onderscheid zich van een groep.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/vrouwen-met-tattoo-zijn-sletten.jpg" title=""><img src="images/vrouwen-met-tattoo-zijn-sletten.jpg" alt="" width="100%"/></a>
+			</div>
+</br> 
+Bijschrift. </br>
+Een vrouw met tatoeage op haar onderrug.</br>
+</br></br></br></br></br></br></br></br></br></br>
+
+
+
+<div id="fotomid">
+<a class="fancybox-effects-a"  href="images/Puberbrein nozems gecomprimeerd_0.jpg" title=""><img src="images/Puberbrein nozems gecomprimeerd_0.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Deze foto zou zomaar uit het foto album van mijn vader kunnen komen</br>
+
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+<div id="fotomid">
+<a class="fancybox-effects-a"  href="images/woman-with-her-child-have-large-lip-plate-piercing.jpg" title=""><img src="images/woman-with-her-child-have-large-lip-plate-piercing.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Een man met een lichtschotel en zijn dochter</br>
+
+</br></br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/neck-ring.jpg" title=""><img src="images/neck-ring.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Vrouw met meer dan 20 cm lange nek </br>
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/foot6.jpg" title=""><img src="images/foot6.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Japanse vrouw van 76 laat haar ingebonden voet zien. Deze foto is gemaakt in 1990 </br>
+
+</br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/camille-clifford-gibson-girl.jpg" title=""><img src="images/camille-clifford-gibson-girl.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Vrouw met een aangesnoerd corset</br>
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/Fong-Leng-en-Mathilde-Willink-door-Paul-Huf.-Vermelden-Paul-Huf-MAI.jpg.jpg" title=""><img src="images/Fong-Leng-en-Mathilde-Willink-door-Paul-Huf.-Vermelden-Paul-Huf-MAI.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+Bijschrift.</br>
+Fong Leng en Mathilde Willink gemaakt door Paul Huf</br>
+
+			</div>
+
+
+			<div id="texthoofd" align="left">
+		</br>
+<h1>Identiteit.</h1>
+Je spreekt van een identiteit als iemand zich met een bepaalde cultuur of uiterlijke kenmerk identificeert. Niet alleen door de dingen te benoemen die bij hen horen, maar ook door dingen te duiden die juist typisch voor de ander zijn. Bepaalde mensen horen erbij en anderen juist niet. Identiteit gaat primair om in- en uitsluiting. Sociale insluiting betekent dat bepaalde mensen - samen - een groep vormen waarmee zij zich identificeren.</br>
+</br>
+Als we naar de laatste honderd jaar kijken dan zien we dat mensen zich graag onderscheiden van de ander. In een bepaalde periode of bij een bepaalde cultuur. Het is belangrijk hoe je er uitziet, hoe je je kleed.</br>
+</br>
+Ik kan me nog goed herinneren dat merkkleding - op de school waar ik zat - belangrijk was. Jongens en meiden in mijn klas voelden zich duidelijk beter dan anderen omdat zij als eerste het laatste model Nike aan hun voeten hadden. Sommige moesten van die Nike’s niets hebben en droegen stevige - een beetje militaristische - zwarte veterlaarzen. Met je kleding kun je iets uitdrukken. Vertel je iets over jezelf. Waar ik zelf stond weet ik niet. Ik denk dat ik me prima kon vinden in de enigszins alternatieve smaak van mijn ouders.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Ik weet nog dat ik tijdens een zomervakantie voor het eerst een meisje aan het strand zag flaneren met een tatoeëring. Ze had een Tribal op haar onderrug laten zetten, vlak boven haar bikini broekje. Ik vond het prachtig. Tegenwoordig is dat geen bijzonderheid meer. Er wordt zelfs al denigrerend gesproken over een kontgewei. De tatoeage is gemeengoed geworden. Niet zelden zie je armen die van de vingers tot aan de schouders zijn vol gezet. Er is geen centimeter onberoerd gelaten. Bij welke groep deze mensen zich aansluiten is me niet helemaal duidelijk. Misschien is het stoer of tonen de mensen daarmee hun onafhankelijkheid. Je ziet de tatoeage bij artiesten, leden van motorclubs maar ook bij voetballers en voetbal supporters en vrachtwagen chauffeurs. Misschien is het de voorstelling die onderscheid maakt.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Maar je kunt je ook onderscheiden met een gebruiksvoorwerp. De mobile telefoon is daar op dit moment een aardig voorbeeld van. Mensen kiezen met overtuiging een bepaald merk toestel, of juist niet.</br>
+Mijn vader vertelde dat in zijn jeugd het type brommer belangrijk was. Je kon aan het merk van de brommer zien of je te maken had met een nozem, hippie, kakker of een lozer.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Of iets echt is, is eigenlijk niet relevant als je jezelf niet eerst afvraag wat nu eigenlijk echt is. Is echt authentiek, ambachtelijk, eerlijk of origineel. Een keus maken is lastig. Het zijn allemaal synoniemen van de term echt die kunnen functioneren in totaal verschillende omstandig- heden. Wat is echt en is echt dan op alle momenten en in iedere situatie even echt. Wat dacht je van het retro Ikea-meubilair of de nieuwe tot op de draad versleten spijkerbroeken en die beroemde hamburgers. Er is veel ergernis over de door producenten zo vaak gebruikte term authentiek. Waar komt die drang naar ambachtelijke producten, unieke ervaringen en het onderscheiden van de massa vandaan?</br>
+</br>
+De Franse - invloedrijke - filosoof Jean-Jacques Rousseau beschreef bijna driehonderd jaar geleden de culturele noodzaak terug te keren naar het natuurlijke. Om met een authentiek en spontaan voorko- men helemaal jezelf te zijn. Een onuitvoerbare opdracht. Je kunt niet ergens naar streven zonder zelfbewust te zijn. Dat zelfbesef staat dus haaks op Rousseau’s spontaniteit. Bewust bezig zijn met je uiterlijk zien we juist als iets oppervlakkigs, terwijl het in het werk van Rous- seau hand in hand gaat met het streven naar de natuurlijke mens. Daarmee illustreert de filosoof de paradox van authentiek willen of kunnen zijn.</br>
+</br>
+Een eigen smaak ontwikkelen is dus geen eenvoudige opgave en over die smaak valt wel degelijk te twisten. De Franse socioloog Pierre Bourdieu was van eenvoudige komaf en maakte het tot zijn levensdoel om mythes en pretenties bij de verschillende klassen te doorbreken. In zijn boek ‘La Distinction’ uit 1979, zette hij uiteen hoe smaak in muziek, mode, kunst en voedsel ons wordt opgedrongen door de sociale constructie waarin we ons bevinden. Gevoel voor stijl op welk gebied dan ook heeft niets te maken met een voorbestemde superioriteit, maar simpelweg met je sociale situatie.</br>
+</br>
+De maten waarin een mens zich kan onderscheiden heeft te maken met verschillende factoren. De belangrijkste twee zijn vrije tijd en het welvaartsniveau. Heb je een dak boven je hooft en goed te eten dan is er tijd om je druk te maken over je identiteit. Als er tijd over is gaan mensen zichzelf en hun omgeving versieren. Misschien zijn de india- nen een mooi voorbeeld. Zij tatoeëerden zichzelf, droegen prachtige kleren en hadden tenten die schitterend versiert werden. Zelfs hun paarden moesten eraan geloven. Zij maakten zo kenbaar dat ze rijk, gelukkig en bijzonder waren.</br>
+</br>
+In sommige Afrikaanse en Amerikaanse culturen is het traditie om een gat in de onderlip te snijden, om dit gat op te vullen met een ronde schijf van klei of hout. Door steeds een grotere schijf te plaatsen, wordt het gat langzaam groter. Er zijn lipschotels gemeten met een diameter van wel twintig centimeter. Het hebben van een lipschotel beantwoord aan een schoonheidsideaal. In de westerse wereld wordt het oprekken van lippen en oorlellen de laatste jaren ook wel waargenomen bij alternatieve culturen.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br>
+Padaung is een cultuur in Thailand, waar de vrouwen hun nek oprekken om te voldoen aan het schoonheidsideaal of aan de wensen van de traditie. Ze dragen ringen om hun nek die ervoor zorgen dat deze langer lijkt. Volgens onderzoek van Johan van Roekeghem zijn het de schouders en de ribben die onder de grote druk bezwijken en in een hoek omlaag gaan staan waardoor de nek langer lijkt.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+In de Japanse cultuur werden vroeger de voeten van meisjes gebroken en ingebonden om ze heel klein te houden. Het inbinden begon populair te worden tijdens de Tang-dynastie die duurde van 618 tot 907. De beeldschone keizerin had van naturen kleine voetjes. Kleine voetjes werden het schoonheidsideaal. Deze gewoonte heeft zich kunnen voortzetten doordat de Chinese mannen die kleine voeten erg sexy bleven vinden. Ook de typisch manier van lopen - met kleine stapjes - werd door de Chinese mannen als opwindend gezien. Vele vaders en moeders wilden dat hun dochter aan die wens voldeed. Zo was de kans groter dat, wanneer hun dochter volwassen was, zij makkelijker aanspraak kon maken op een geschikte huwelijkspartner.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Een typisch voorbeeld van een westers schoonheidsideaal is de wespentaille. Met een daarvoor speciaal ontworpen corset werd het middenlijf van de vrouwen ingesnoerd. De wespentaille is lange tijd het modebeeld en schoonheidsideaal geweest in welgestelde kringen. Wie kent niet de foto’s van flanerende dames op de Parijse boulevards.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Mensen hebben weinig invloed op het gangbare modebeeld of op tradities. Ze worden niet zelden opgedrongen. Een jong meisje zal niet snel op een mooie zondagmorgen vragen. Vader, zou je allebei mijn voeten even willen breken? Zelfs bij een bodybuilder kun je je afvragen in hoeverre er spraken is van vrije wil. Waarom zou iemand de hele dag in de volle Franse zon met een pruik op gaan lopen. Gaat een gezonde vrouw op de operatietafel om er aan alle kanten stukken vlees af te laten snijden of bij te laten plaatsen. Staat de zelfde vrouw iedere dag een uur eerder op om minstens zoveel tijd voor de spiegel te gaan staan. Laten mensen zich snijden om mooie littekens te krijgen of steken zij ijzer in hun lijf.</br>
+Wie het precies weet moet het maar zeggen. Customisable Design?</br>
+</br>
+<h1>Personal Branding</h1></br>
+Mensen kunnen door hun kleding, hun haardracht, door een tatoeëring of door het ondergaan van een facelift of een operatie zichzelf customisen. Deze voorbeelden zijn lullige pogingen iemand te zijn of te worden als je het vergelijkt met mensen die van zichzelf een merk maken. Customisen in die vorm is voornamelijk een uiterlijke kwestie. De meer innerlijke zaken zoals de manier waarop men denkt en handelt is van even zo goot belang. Alleen op het uiterlijk zul je nooit als een merk worden gezien laat staan een icon. Toch zijn er uitzonderingen. Een mooi Nederlands voorbeeld is Mathilde Willink. Een 1.90 m lange en atletisch gebouwde dame die op haar 19 jaar ging samenwonen met Carel Willink. Een toe nog volstrekt onbekende kunstenaar. Mathilde werd beroemd doordat zij de kleding droeg van Fong Leng. Een zeer excentrieke modeontwerpster die ook Willink kende. Mathilde trok de aandacht doordat zij in die experimentele kleding door Amsterdam flaneerde. Mathilde werd beroemt en in haar kielzog ook Fong Leng en Carel Willink.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Even terug naar mensen die er in slagen een merk te worden. Zij behoren niet tot een groep of een cultuur. Ze staan op zichzelf. Soms kun je zelfs spreken van een fenomeen.</br>
+</br>
+Zelf vind ik - maar er zijn veel voorbeelden - Elvis Presley een sterk voorbeeld van een merk. Zijn stem was te herkennen uit duizenden. Zijn muziek is - nog steeds - iconisch. Zijn doen en laten was even herkenbaar als zijn verschijning. Mensen adoreerde hem. Volgde hem in alles wat hij deed en overal waar hij ging. Als jouw stem maar een heel klein beetje leek op die van Elvis zat je op rozen. Tijden zijn leven waren er al look-a-like verkiezingen. Elvis was een reizend circus, met persoonlijk verzorgers, bewakers, managers, stemcoaches, kappers en begeleiders. Alles aan de man klopte. In de reclame zoude mensen spreken van een goed concept. Niets gecustomised. Alles echt, authentiek. Veel mensen zijn het daar over eens. Ook als je niet van zijn muziek houdt.</br>
+</br>
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/Elvis-elvis-presley-10252942-1024-768.jpg" title=""><img src="images/Elvis-elvis-presley-10252942-1024-768.jpg" alt="" width="100%"/></a>
+			</div></br></br>
+
+
+	
+</div>
+	</div>
+	<div id="grfoto">
+		<img src="images/galerie.jpg" alt="2" style="width:100%">
+	</div>
+	<div id="textbreed" align="left">
+		
+		<div id="textbreed" align="left">
+</br>
+
+			<div id="textbij" align="left">
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/dea1.jpg" title=""><img src="images/dea1.jpg" alt="" width="100%"/></a>
+			</div>
+			</br> 
+Bijschrift.</br>
+Dit is het T-shirt met het logo van de Design academie van Eindhoven.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/09-21_google.png" title=""><img src="images/09-21_google.png" alt="" width="100%"/></a>
+			</div></br></br>
+Bijschrift.</br>
+Screenshot van de google zoeksite, gemaakt in 1998
+			
+			
+			</div>
+
+		
+		
+		</br></br><div id="texthoofd" align="left">
+			
+<h1>Dit is een interview met Pawel Pokutycki. Een ontwerper van Poolse komaf. Drie jaar geleden stond hij voor mijn klas en ik bewonder hem voor zijn kijk op het vak. In het bijzonder voor het idee dat in de toekomst de grafisch ontwerper voornamelijk verantwoordelijk zal zijn voor het maken van software, waar andere mensen mee kunnen ontwerpen. Ik hoopte toen vooral dat hij geen gelijk zou krijgen, maar nu begrijp ik beter wat hij bedoeld.</h1></br>
+</br>
+<h1>Hoe zou jij het fenomeen “customisable design” uitleggen?</h1>
+</br>
+Design wordt redelijk massaal gemaakt. We hebben een set gereedschappen die aangepast kunnen worden. Voor de kijker en de gebruiker is de esthetiek grote mate buigzaam of de manier waarop iets werkt. De ontwerper zet een kader voor de visualisatie en de functionaliteit, met een zekere gradatie van aanpasbaarheid. Het ontwerp wordt zo onderworpen aan veranderingen.</br>
+</br>
+<h1>Hoe ziet – volgens u – de toekomst van customisable design eruit en wat kan de grafisch ontwerper hier voor betekenen?</h1>
+</br>
+Ik denk dat ‘customisable design’ een glansrijke toekomst heeft. Dat gezegd hebbende – waarbij ik niet in ga op de definitie van glansrijk – wil ik ook zeggen dat sommige dingen niet customisable moeten zijn, zoals verkeersborden. Dingen die een standaard nodig hebben voor veiligheid bijvoorbeeld. Het heeft dus echt te maken met wat we ontwerpen. De rol van de grafisch ontwerper is er nog steeds, maar ik denk dat dit customisable design meer wordt toegepast in bijvoorbeeld interfaces en digitale media. Dat gaat bijna over een ander soort ontwerpen. Een ontwerper codeert de mogelijkheden en gereedschappen voor de kijker en gebruikers. Dat is een ander perspectief.</br>
+Natuurlijk zijn er traditionele ontwerpen waar het ook in gebeurd. Niet zo lang geleden is er een boek gepubliceerd over merken en identiteiten die aan het evolueren zijn. Customisable. De visuele identiteit van de Design Academie in Eindhoven is daar een voorbeeld van. Ze hebben een frame waarin iedereen kan schrijven. Maar omdat het open wordt gelaten kun je er dus inschrijven wat je wilt. Het frame zou dus op zichzelf staand genoeg herkenning moeten geven. Dus ja, voor de toekomst, maar ook nu. Er is een breed terrein waar het toepasbaar op is en de potenties die deze vorm van ontwerpen heeft worden nog steeds ontdekt.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>Zie je jezelf als een grafisch ontwerper? Hoe zou je willen dat andere je zien?</h1>
+</br>
+Ik heb geen achtergrond als grafisch ontwerper. Ik heb wel kennis, interesses en ervaringen, maar ik ben een interactie ontwerper. Ik benader ontwerpen van een ander standpunt.</br>
+Ik hou me veel bezig met educatie, dus zou ik mezelf graag zien als een leraar in het algemeen voor kunstenaars en ontwerpers. Voor beide, dus niet alleen voor ontwerpers. Ik heb graag vage grenzen en vermijd definities zoveel als ik kan. Gelukkig voor mij, is er nog niet van mij geëist dat ik specificeer wat ik doe en hoe ik het doe. Als ik mijn biografie schrijf noem ik dat ik een interactie ontwerper ben, omdat ik daar een masters voor heb. Ik noem ook woorden als inspi- rator, denker, concept en theorie.</br>
+</br>
+<h1>Zou je geen grafisch ontwerpen noemen?</h1>
+</br>
+Nee, het is een interessante discipline, nobel en traditioneel, maar ik heb me twijfel over de grafische deel van het woord. Ik geloof niet dat het erg toepasselijk is voor vandaag de dag. Dat is natuurlijk een langer verhaal.
+Er zijn bepaalde design onderwerpen die niets te maken hebben met grafisch, bijvoorbeeld coderen en interactie ontwerpen op het internet. Natuurlijk krijgen deze dingen een interface, die vaak typografisch zijn, maar dat is secondair. Het eerste is de interactie. Je hebt dus een mengsel van social design, interactie design en graphic design. Ik ben niet geïnteresseerd in specialiseren. Van elke discipline vind ik wel iets interessant. Ik denk: dat de andere design disciplines meer bij deze tijd passen. (Ik hoop dat je dat niet letterlijk vertaalt)</br>
+</br>
+<h1>Je geeft wel les aan grafisch ontwerp studenten op een kunst academie, welke richting zou je ze op willen helpen?</h1>
+</br>
+In mijn lessen focus ik op het aanmoedigen van het gebruik van techniek. Help ik studenten het te begrijpen. Met en voor techniek te ontwerpen. Dit doe ik niet alleen voor het doel hi-teck te zijn, maar ik wil dat mensen begrijpen wat techniek allemaal kan veranderen en wat de waarden ervan is.</br>
+</br>
+Ik denk dat een ontwerper zijn hele leven kan leren, ze kunnen veel leren van nieuwe media en de media van de toekomst. Ik vind het interessant als ontwerpers een passie hebben voor bijvoorbeeld antropologie, filosofie, sociologie, literatuur, theater, muziek. Ik vind het namelijk heel interessant als deze disciplines samen komen. Hoe grafisch ontwerpen en muziek of interactie ontwerpen en typografie samen tot een werk gevormd worden. Ze hebben natuurlijk allemaal iets gemeen.</br>
+</br>
+<h1>Heeft jou manier van lesgeven iets te maken met de ideeën over jou leven en het leven?</h1>
+</br>
+Zeker wel. Les geven is natuurlijk een vorm van doorgeven van je eigen kennis. Als ik een jaar met een student optrekt leer ik hem of haar natuurlijk mijn kijk op het leven. Ik reflecteer mijn passie op hun, mijn manier van denken en hoe ik kijk. Ik neem geen afstand, en moedig ze vaak aan in onderwerpen te duiken die ik heel interessant vind.</br>
+Dus mijn manier van leven, neem ik mee in het lesgeven. Andersom heeft het natuurlijk ook veel effect. Omdat als ik les geef zelf ook veel leer. Het is een ruil voor mij.</br>
+Ik zie mezelf meer als mede student. Dat gaat natuurlijk niet helemaal op, omdat ik ze een cijfer moet geven. Maar ik doe vaak ook mijn eigen opdrachten die ik heb gemaakt voor de studenten. Als we exposeren hang ik mijn werk of experiment er ook tussen. Vorig semester hebben we met de I.M.D. studenten een theater gemaakt. Dan ben ik zowel een acteur als een regisseur, en doe gewoon mee. Ik hou er van de opdrachten naar mijn te richten. Het is een samenwerking. Daarom kan een student ook nooit zeggen dat iets 100% van hem is.</br>
+</br>
+<h1>Zijn jou ideeën over de afgelopen vijf jaar veel veranderd?</h1>
+</br>
+Ik was vroeger nog al pragmatisch. Ik was opgeleid als een ontwerper met een commerciële aanpak. Door deze school ben ik wat losser naar dingen gaan kijken. Dus met ruimte voor minder specifieke dingen. Ik zie mezelf nog steeds wel meer als een ontwerper, maar dan wat minder “to the point”.</br>
+Sommige collega zijn verrast dat ik zo veranderd ben, maar vooral de manier waarop.</br>
+</br>
+<h1>Ben je nog steeds van mening dat de grafisch ontwerper de software van de toekomst gaat maken?</h1>
+</br>
+Ik denk er nog steeds zo over. Maar niet alle grafisch ontwerpers bereiken dat punt. Je hebt strijd tussen mensen van verschillende disciplines. Ik zie een grote nieuwe ontwerp discipline voort vloeien uit computerwetenschap.</br>
+</br>
+Computerwetenschappers, mensen die coderen hebben hierbij invloed. Zij veranderen en vormen de nieuwe wereld. Google, wikipedia, Facebook, Twitter zijn niet ontworpen door grafisch ont- werpers. Grafisch ontwerpers zijn wel degelijk aanwezig, ze gebruiken media en hebben hun rol. Een prominente rol begrijp me niet verkeerd. Maar voor mij is Google het ontwerp van de 21ste eeuw (einde van van de 20ste). Het veranderd de wereld maar is bedacht door “geeks” is een garage, zonder educatie, gefascineerd door de mogelijkheden van technologie. Zonder ook maar na te denken over de consequenties, dat ze cultuur maken, een vorm van leven. Dat op zichzelf is niet visueel. Het kan iets visuele woorden. Het start met woorden, codes, infrastructuren. Het is moeilijk te plaatsen waar het staat. Daarom denk ik dat interactie ontwerpen het mooi verwoord, dat is namelijk nog steeds heel breed. Voor mij is het minder fysiek in de essentie, het fysieke komt later.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br>
+<h1>“Ik hou van het woord protocol. Interactie ontwerpers ontwerpen protocol”.</h1>
+</br>
+Grafisch ontwerpen heeft (vind ik) de computer de das omgedaan, door het over ontwerpen. Het feit dat we een desktop interface gebruiken, loopt achter, omdat een desktop verwijst naar mappen, papier en een prullenmand. (geluid van afkeer) dat heeft niets te maken met de digitale ruimte. Digitaal is zoveel meer. Visualisering is het tegenovergestelde effect. Google doet dat goed. Het enige wat je doet is zoeken in tekst en ruimte. Het is zo’n minimalistisch aanpak van ontwerp.</br>
+</br>
+<h1>“Customisable, leuk je heb opties, je kunt het eigen maken, maar als je over open source praat bijvoorbeeld, neem je het een stap verder. Ja je kan het eigen maken, maar je bepaald compleet zelf de regels”.</h1>
+</br>
+</br>
+</div>
+
+</br>
+	</br>
+	</div>
+	</div>
+	<div id="grfoto">
+		<img src="images/galerie.jpg" alt="2" style="width:100%">
+	</div>
+	<div id="textbreed" align="left">
+		
+		<div id="textbij" align="left">
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+Wikipedia.</br>
+Een encyclopedie waar iedereen altijd aan kan toevoegen en aanpassen. Zo verbeteren en zorgen we dat er zo’n compleet mogelijke definitie of uitleg van een bepaald begrip ontstaat. Omdat iedereen mee deelt ontstaan er een hele gespecificeerde uitleg, van bijvoorbeeld mensen met ervaring of studies. ‘Een uitgebreidere en gedetailleerdere encyclopedie vind je niet’.</br>
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/makerbot-replicator.jpg" title=""><img src="images/makerbot-replicator.jpg" alt="" width="100%"/></a>
+			</div></br></br>
+Bijschrift.</br>
+Makerbot is een 3d printer. Adam Mayer, Zack Hoeken en Bre Pettis maakte in 2009 hun eerste makerbot. Wat is begonnen als een hobby is uitgegroeid tot een business. Het moest een printer worden voor de beginner en de hobbyist. De kosten moesten dus laag en het printen gemakkelijk en snel. De Makerbot is een open en transparant product, je koopt de onderdelen en de stuurprogramma’s zijn open source. Zo kan je heel gemakkelijk en ‘gratis’ het product aan- passen en verbeteren. De enige voorwaarden zijn wel, dat je de uitvindingen die jij doet ook weer prijsgeeft, zodat we het product met ze alle kunnen blijven verbeteren.</br>
+			
+			
+			</div>
+		
+		
+		
+		<div id="texthoofd" align="left">
+</br>
+<h1>Open Source</h1>
+Toen ik negen jaar oud was kreeg ik - zonder het te weten - te maken met een mooi voorbeeld van open source. Ik moest aan die ervaring denken toen ik er over las. Ik woonde tegenover een braak liggend terrein midden in het dorp. Er werd maar niet gebouwd omdat de plannen stuiten op weerstand. Een aantal actiegroepen maakte bezwaar tegen de bestemming. Voor mij en andere kinderen uit de buurt was het onze jungle. Met hoog gras en hier en daar een struik. Ook lag er her-en-der bouwafval dat niet was weggehaald. Planken, stenen, roestige ijzeren pijpen en buizen. Ik herinner me ook een zwarte metselkuip. Al die rommel had ook zo z’n functie. Je kon je er prima achter verstoppen. Als het oorlog was, en we elkaar met blaaspijpjes achterna zaten klommen we op de stapel stenen om het terrein te overzien.</br>
+</br>
+In de zomer van 1999 had ik samen met mijn twee jaar oudere buurjongen het plan opgevat er een ondergrondse hut te gaan bouwen. Ik had zoiets ooit weleens ergens eerder gezien. Je graaft een sleuf met aansluitend een flink gat. Dekt het gat en een deel van de sleuf af met planken. Leg over de planken een zijl en verspreid de aarde die uit het gat is gekomen over het zijl en de directe omgeving. Dit lijkt zo gepiept. Ik had een goede techniek ontwikkeld op het strand waar ik regelmatig mijn zusjes had ingegraven. Maar dit was andere koek. Ons huis en het terrein lagen nog geen 100 meter van de Oude Rijn vandaan. Er was dus geen spraken van lekker graven. Het was meer hakken in van die vette blauwe klei. Maar die klei had ook een voordeel. De wanden van het gat liepen loodrecht omlaag en zonder instortingsgevaar. Als ik me goed herinner hebben we drie dagen nodig gehad om het gat te graven en ruim een dag om de zaak af-te-dichten. We waren zo trots als een pauw met onze hut.</br>
+Na een paar uur in onze hut gezeten te hebben was de spanning er wel af. Het werd tijd voor een housewarmingparty. Drie jongens uit de straat achter ons hadden wel interesse. Uit woorden als vet en cool bleek hun waardering voor ons bouwsel. Een gezonde jaloezie maakte dat er meer gaten gegraven werden. Eerst als losse bouwwerken. Later werden ze gekoppeld door middel van verbindingsgangen. Iedere nieuwe hut werd een beetje fraaier. Stenen vloeren, houten deuren voor de toegang. Er was er een met een oud dakvenster en kleden op de grond. Het werd echt spannend toen er zelfs een hut kwam met een rookkanaal. Wat me het meest is bijgebleven is de onderlinge samenwerking. Niet alleen met sjouwen maar ook met het bedenken van dingen. Bij ons in de garage liggen nog paar oude scharnieren of. Als je die dikke balk nou er in het midden overheen legt dan kun je die korte planken er zo op laten steunen.</br>
+</br>
+Samenvattend hadden we een geweldige vakantie, zes ondergrondse hutten met een uitgebreid gangenstelsel, een paar nieuwe vrienden en een boze projectontwikkelaar omdat zijn terrein was omgeploegd.</br>
+Open source is een computer term voor het vrij geven van de bron code, zonder dat daar kosten aan verbonden zijn. Maar het betekent veel meer. Het is een filosofie zowel als onderdeel van sociologie en psychologie. Open Source is een cultuur geworden. Een transparant systeem waar iedereen op kan uitbouwen. Net als onze ondergrondse hut maakten we met elkaar iets, wat we alleen niet voor elkaar hadden gekregen. Iedereen implementeert zijn eigen wensen en oplossing. Ook al hadden we het in ons eentje gekund, als groep werkten we vele malen effectiever.</br>
+</br></br></br></br></br></br></br></br></br></br>
+Hoe mooier kan je het maken. Met ze allen iets creëren. Het idee bestaat voor software. Software wordt niet zomaar open source genoemd het moet voldoen aan bepaalde richtlijnen die opgesteld zijn door het OSI, Open Source Initiative. De licentie moet volgens Bruce Perens, die de richtlijnen heeft geschreven, door een kwalificatie heen voor dat het de titel open source verdient.</br>
+</br>
+Open source hardware of gewoon open hardware wordt op de zelfde manier als open source ontwikkeld. Niet alleen het ontwerp maar de complete werking is transparant. Net als bij open source kan iedereen zijn aanpassing en verbeteringen aanbrengen. Het grote voordeel is dat er hierdoor hele grote stappen en ontwikkelingen mogelijk zijn.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+Open source of open economie, het begint hopelijk een beetje duidelijker te worden. Open is open en transparant. We delen onze kennis om samen sneller tot een resultaat te komen. Want als we er met meerdere hoofden tegelijkertijd over buigen, gaan ontwikkelingen sneller.</br>
+</br>
+</br>
+			<!-- Deleted photo's and options  
+</br>
+</br>	
+			<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/frontgrotezaal.jpg" title=""><img src="images/frontgrotezaal.jpg" alt="" width="100%"/></a>
+			</div>
+</br>
+		
+			<div id="kolomm">
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/achtergrotezaal.jpg" title=""><img src="images/achtergrotezaal.jpg" alt="" width="100%"/></a>
+				</div>
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/rechtsgrotezaal.jpg" title=""><img src="images/rechtsgrotezaal.jpg" alt="" width="100%"/></a>
+				</div>
+			</div>
+</br>
+			<div id="kolomm">
+				<div id="fotomid">
+					<a class="fancybox-effects-a" rel="gallery1" href="images/linksgrotezaal.jpg" title=""><img src="images/linksgrotezaal.jpg" alt="" width="100%"/></a>
+				</div>
+			</div>
+</br><hr></br>
+		</div>
+		
+		!-->
+		</div>
+		</div>
+		<div id="grfoto">
+		<img src="images/portret1920.jpg" alt="1" style="width:100%">
+		</div>
+		<div id="textbreed" align="left"></br>
+			
+					<div id="textbij" align="left">
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br>
+
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/1378824439.png" title=""><img src="images/1378824439.png" alt="" width="100%"/></a>
+			</div></br></br>
+Bijschrift.</br>
+Customisable mobile telefoon. Ontworpen en ontwikkeld door de Nederlander Dave Hakkens</br>
+			
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/spraybot-stone933.jpg" title=""><img src="images/spraybot-stone933.jpg" alt="" width="100%"/></a>
+			</div></br>
+Bijschrift.</br>
+Stone Spray research project wil een brug 3d printen met zand en zonnen energie.</br></br></br></br></br>
+
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/8a4454e0f553ea337395c4ae540d6432.jpg" title=""><img src="images/8a4454e0f553ea337395c4ae540d6432.jpg" alt="" width="100%"/></a>
+			</div></br></br>
+
+				<div id="fotomid">
+<a class="fancybox-effects-a" href="images/cee0a81e809619d36952b4355f3bbff9.jpg" title=""><img src="images/cee0a81e809619d36952b4355f3bbff9.jpg" alt="" width="100%"/></a>
+			</div></br>
+Bijschrift.</br>
+3d geprinte jurk van het MoMA</br></br></br></br></br>
+
+<div id="fotomid">
+<a class="fancybox-effects-a" href="images/14.jpg" title=""><img src="images/14.jpg" alt="" width="100%"/></a>
+			</div></br>
+Bijschrift.</br>
+Flexibele printstructuren voor meubels, gebruikt voor het afstudeer product van
+Lilian van Daal.</br>
+
+
+			
+			</div>
+			<div id="texthoofd" align="left">
+				
+</br>
+<h1>Conclusie</h1>
+Wat betekend Customisable Design voor de consument.</br>
+Ik ben ervan overtuigt dat bewust georganiseerde Customisable Design aan het begin staat van haar levens cyclus. Ik definieer Customisable Design dan als een door modules te variëren product dat in grote oplage gemaakt wordt. Customisable Design zou heel goed algemeen goed kunnen worden. De mens heeft de behoefte zich te onderscheiden en dat vindt zijn weg meestal in uiterlijkheden. Customisable Design heeft volgens mij dan ook de grootste toekomst in de kledingbusiness en in de luxere artikelen. De behoefte om een pak rijst te Customise zal geen algemeen goed worden.</br>
+</br>
+Het succes van Customisable Design zal voor het overgrote deel afhangen van de vindingrijkheid van ontwerpers en creatieven. Wat kunnen zij bedenken en wat kunne zij realiseren.</br>
+</br>
+Voor de gebruiker in de consumenten sfeer, zie ik voorlopig nog een zeer bescheiden taak weg gelegd. Zij mogen voorlopig nog alleen hun creativiteit botvieren op een modulair systeem. Voor de Business to Business markt ligt dat natuurlijk heel anders. Customisable Design heeft daar een heel ander belang.</br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+
+
+
+
+
+
+</br>
+Als de techniek het mogelijk maakt dat de consument ook zijn module kan inbrengen zal er echt iets heel bijzonders ontstaan. Voor mijn gevoel spreken we dan niet meer van Customisable Design maar meer over wat we nu Open Source noemen. Ongetwijfeld komt daar dan weer een andere naam voor.</br>
+</br>
+Wat betekend Customisable Design voor de producent.</br>
+Redenen om een Customisable Design programma op te zetten is - voor de producent - meestel van economische aard. Het is ook een uiting van betrokkenheid. Het geeft aan mee te willen denken. Een derde rede is binding. Door Customisable Design toe-te-passen geeft de producent aan te willen luisteren. Zenden maar ook ontvangen. Als de producent door Customisable Design meer gaat doen met de gegevens die hij ontvangt, kan er gewerkt gaan worden aan een band. Die band kan leiden tot sympathie en merkentrouw. Uiteindelijk kan een producent meer verdienen aan een overtuigde en betrokken consument.</br>
+</br>
+Door fantaserend over wat er in de toekomst binnen het begrip Customisable Design mogelijk is moet ik vooral denken aan het toepassen van 3D printing. 3D printing is mogelijk met steeds meer materialen. Er worden iedere dag nieuwe kunststoffen ontwikkeld met uiteenlopende eigenschappen. Als die kunststoffen te gebruiken zijn in een 3D printer komen er weer toepassingen bij. Het is nu al mogelijk om kledingstukken te printen. Er zijn voorbeelden van geprinte meubelen als tafels en stoelen. Gebruiksvoorwerpen als schalen, kommen en zelfs serviesgoed behoren tot de mogelijkheden. Een architectenbureau is op dit moment bezig - op ware grote - een huis en een brug te printen. Ik word enthousiast als ik bedenk dat je als je een nieuwe auto bestel zelf het design mag bedenken en de lay-out van het dashboard mag maken. 
+
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
+</br></br>
+
+Als we instaat zijn op grote schaal enkele stuks te produceren dan zou Customisable Design echt van start kunnen.</br>
+</br></br><hr></br></br></br>
+
+<div id="texthoofd" align="left">
+
+
+<h1>Sourses:</h1>
+<h3>video’s</br>
+</br>
+Tegenlicht aflevering, De nieuwe makers</br>
+http://tegenlicht.vpro.nl/afleveringen/2014-2015/de-nieuwe-makers.html</br>
+Tegenlicht aflevering, Gratis geld</br>
+http://tegenlicht.vpro.nl/afleveringen/2014-2015/de-gratis geld.html</br>
+Ted Talk, Ken Robinson</br>
+http://www.ted.com/talks/ken_robinson_says_schools_kill_creativity</br>
+Ted Talk, Yochai Benkler </br>
+http://www.ted.com/talks/yochai_benkler_on_the_new_open_source_economics#t-197368</br>
+Print the legend, Luis Lopez, J. Clay Tweel 45 DVD</br>
+VideoGame the movie, Jeremy Snead</br>
+Netflix Documantaire</br>
+</br>
+Boeks</br>
+</br>
+Understanding design, Kees Dorst</br>
+Dutch Design, Toon Lauwen.</br>
+Het Kant en klaren huis, Daan bakker en Christian Rapp</br>
+Everyone is a Designer, in the Age of Social Media, Mieke Gerritsen Open Design Now, BIS publishers, Amsterdam</br>
+Time Magazin, 2 feb 1996</br>
+</br>
+Internet</br>
+</br>
+http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox </br>
+</br>
+http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender) 21 </br>
+</br>
+https://www.youtube.com/watch?v=vkFkb1ghwWo</br>
+</br>
+http://arth207-spring.tumblr.com </br>
+</br>
+http://www.designhistory.nl/2009/grafisch-ontwerper-ad-werner-en-zijn-filmaffiches/ </br>
+</br>
+http://www.bispublishers.nl/bookpage.php?id=140 </br>
+</br>
+http://www.de-ruimte-ontwerpers.nl/werk/geschiedenis-en-toekomst-van-grafisch-ontwerpen/ </br>
+</br>
+http://www.loekkorff.eu/noord/padaungvrouwen_nek.php</br>
+</br>
+http://nl.wikipedia.org/wiki/Pierre_Bourdieu </br>
+</br>
+http://tegenlicht.vpro.nl/nieuws/2014/maart/hoe-echt-ben-jij.html </br>
+</br>
+http://www.frankvanbergen.nl</br>
+</br>
+http://thecreatorsproject.vice.com/nl/blog/moma-just-acquired-a-3d-printed-dress</br>
+</br>
+http://www.mediapages.nl/radio-veronica/69-geschiedenis-radio-veronica </br>
+</br>
+http://opendesignnow.org/index.php/case/openstandards-thomas-lommee/ </br>
+</br>
+http://3dprint.com/7084/printrbot-open-source/</br>
+</br>
+</h3>
+
+</div>
+
+
+
+
+</div>
         
-        <!-- The following metadata can be useful for archiving -->
-        
-        <meta property="dc:creator" content="Schrijver, Eric">
-        <meta property="dc:created" content="2014-11-17T00:00:00Z">
-        <meta property="dc:modified" content="2014-11-20T00:00:00Z">
-        
-        <!-- Link stylesheets!-->
-        <link rel="stylesheet" type="text/css" href="css/normalize.css" /> <!-- This normalize.css file takes care of some inconsistencies between browsers -->
-        <link rel="stylesheet" type="text/css" href="css/style.css" /><!-- Here I put the rest of my styles-->
-    </head>
-    <body>
-<h1>Thesis_Grafischontwerpen2014-2015</h1>
-
-<h3>Inleiding.</h3>
-
-<h3>Hoofdstuk 1, Aanpasbaar Ontwerp.</h3>
-
-<ul>
-<li>Tijd periode 1, Ambachten.</li>
-<li>Tijd periode 2, Industriële revolutie.</li>
-<li>Nu, 3d Printen.</li>
-<li>Toekomst.</li>
-</ul>
-
-<h3>Hoofdstuk 2, Interviews.</h3>
-
-<h3>Hoofdstuk 3, Delen.</h3>
-
-<ul>
-<li>OPEN SOURCE.</li>
-<li>Mods.</li>
-</ul>
-
-<h3>Hoofdstuk 4, Keuzes.</h3>
-
-<ul>
-<li>Personaliseren.</li>
-<li>identiteit</li>
-</ul>
-
-<h3>Conclusie.</h3>
-
-<p>Kop: Heeft ‘Customisable Design’ een glansrijke toekomst en wat is de rol van de (graphic) designer? 
-Subkop: Is het denkbaar dat leken instaat zijn een goed design of graphic design te maken of blijft het altijd de taak voor de professional?
-Subkop: Nike heeft in 1998 een Customisable schoen op de markt gebracht. Wat voor resultaten kunnen/zijn er bij ‘Customisable Design’ ontstaan waar de ontwerper niet aan heeft gedacht?</p>
-
-<p>Wat komt de behoefte vandaan om je te willen onderscheiden van anderen? </p>
-
-<p>Inleiding. (Wat is Customisable Design?)
-Customisable design is een benaming welke aangeeft dat er voor de koper van een bepaald product esthetische of functionele keuzen zijn die gemaakt kunnen worden voordat het product wordt aangeschaft. Het gaat in veel gevallen om producten die variabele kennen binnen een modulair systeem. Als zo’n systeem zorgvuldig en kwalitatief is uitgewerkt kan een koper tot een bijzonder origineel product komen.</p>
-
-<p>Voorbeelden van Customisable Design.
-1. Eén van de eerste voorbeelden van Customisable Design is misschien het Swatch horloge. Binnen de ranch van horloges maakte het merk ook series waarbij verschillende wijzerplaten, kastranden en bandjes werden geleverd. Eenvoudig verwisselbaar waardoor je bij iedere outfit een passende horloge kon creëren.
-2. Later produceerde Swatch samen met Mercedes Benz de Smart. Een uiterst handzaam autootje waarvan de verschillende carrosserie en interieur onderdelen verwisselbaar waren.
-3. Als je de website van de Hema bezoekt en doorklikt naar fotoboek, kun je zien hoe je op een eenvoudige manier je eigen fotoboek kunt maken. Je kunt kiezen uit verschillende basis lay-outs en boekformaten. Wil je een hardcover of softcover, glanzend of mat papier. Je kunt zelfs kiezen uit verschillende papierkwaliteiten. Ook krijg je tips over interessante thema’s als vakantie, familie, baby of trouwboeken en richtlijnen over hoe je je foto’s het beste in de lay-out plaatst. Binnen enkele werkdagen krijg je je boek toegestuurd in de oplage die je heb doorgegeven en bovenal voor een zeer schappelijke prijs.</p>
-
-<p>Dialoog met de gebruiker.
-Customisable Design heeft ook belangrijke voordelen voor de gebruiker. Door dat de gebruiker zijn wensen kenbaar maakt kan er een dialoog ontstaan en een dialoog kan in sommige gevallen zelfs een band veroorzaken. Als gebruikers het gevoel hebben dat er naar ze geluisterd wordt en de producent er voor hen is, verhoogt dat de sympathie voor een merk. Die sympathie veroorzaakt trouw en iemand die blij is met een merk en die verbinding voelt, ziet ook de meerwaarde daarvan. In het geval van Apple zie je dat Apple niet op prijs hoeft te concurreren. Apple consumenten betalen graag wat meer.
-Radio Veronica is misschien een mooi voorbeeld van een organisatie die de dialoog zocht met haar luisteraars. Rond de jaren 60 van de vorige eeuw had de Nederlandse (radio)luisteraar de beschikking over twee zenders. Deze radiozenders werden gerund door degelijke radiomakers en de staat zorgde voor de financiën. Beide zenders hadden min-of-meer hetzelfde aanbod. Nieuws, opinie en lichte muziek. Veelal van Franse of Duitse origine. Beide zenders waren uitsluitend aan het zender.
-Radio Veronica was in het begin vooral een amateur zender en zendpiraat. Omdat ze bij wet verboden waren zonden ze hun programma’s uit vanaf een schip in de Noordzee. De radiomakers waren rond de twintig en de technici misschien een paar jaar ouder. De opbrengsten kwamen uit advertenties en hun grote voorbeeld was America. Qua radio, TV en muziek liepen ze daar tientallen jaren voor op Europa. Omdat ze bij Veronica zelf voor hun inkomsten moesten zorgen dachten ze veel commerciëler en meer naar buiten gericht dan hun collega’s in Hilversum. Zij hadden al snel banden met de grote bedrijven in Nederland. De banden met platenmaatschappijen zorgde voor hitparades en alarmschijven. Ze namen programma’s op door het hele land en de DJ van Veronica draaide hun muziek in de grote clubs en buitenfeesten. Ze organiseerde tal van evenementen voor en met hun luisteraars en niet zelden was er contact met fans tijdens de uitzendingen.</p>
-
-<p>Hoofstuk 1. Aanpasbaar ontwerp.</p>
-
-<p>Tijd periode 1, Ambachten.
-Ik neem je graag mee naar een periode ongeveer vier, vijf honderd jaar geleden. Als je toen een stoel nodig had ging je naar een meubelmaker, een man of vrouw met een werkplaats die met de hand een stoel voor je maakt of al had gemaakt. Zodat jij er één of meer uit kan zoeken. Maar hoeveel ze ook op elkaar lijken, er is er geen één het zelfde. De kunst van het meubelmaken wordt door gegeven van vader op zoon en is daarom vaak een familie bedrijf. </p>
-
-<p>Tijd periode 2, Industriële revolutie.
-Toen begon de industriële revolutie. Rond 1750 in Engeland, daarna verspreide het in het begin 19de eeuw in de rest van Europa. Ambachtelijke en kleinschalige werkplaatsen groeiden uit tot grote fabrieken en vormden samen een grootschalige industrie. Door die groei daalde de prijs van de producten enorm, waardoor steeds meer mensen zich deze producten konden veroorloven. Het maken van iets zo simple als een stoel is geautomatiseerd door machines, die de verschillende onderdelen maken die later in elkaar gezet worden. Er worden stoelen gemaakt waarvan de onderdelen identiek aan elkaar zijn.
-Relatief snelle uitvinding, ontwikkeling en toepassing van nieuwe technieken.</p>
-
-<p>Waar Automatisering ons vooral beperkingen heeft opgeleverd zal de technologie ons de vrijheid weer geven.</p>
-
-<p>De automatisering van een productieproces kan naar een productieverhoging ook een enorme kostenbesparing tot gevolg hebben. Deze effecten zorgen ervoor dat veel producten bereikbaar werden voor het grote publiek. 
-Een neven effect van grootschalige productie is het lastig implementeren van variabel. Het gevolg hiervan is de spreekwoordelijke eenheidsworsten.
-Henry Ford zou over de in massaproductie gemaakte T-Ford hebben gezegd: "Je kunt hem bij ons in alle kleuren kopen, als het maar zwart is.</p>
-
-<p>Door al deze ontwikkelingen worden ook de gereedschappen om de producten te maken betaalbaar. </p>
-
-<p>Communicatie merk versus gebruiker
-Waar merken vroeger uitsluitend aan het zenden waren groeit het besef dat ontvangen/luisteren ook een factor is voor een goede band met de gebruiker</p>
-
-<p>Hoofdstuk 2, Interviews.</p>
-
-<p>Hoofdstuk 3, Delen.</p>
-
-<p>Hoofdstuk 4, Keuzes.
-Wordt Customisable Design een fenomeen (toekomst)
-Als we naar de laatste honderd jaar kijken dan zien we dat mensen zich graag onderscheiden van anderen. In een bepaalde periode was het belangrijk hoe je er uitzag. Welke kleding je droeg. Ik kan me nog goed herinneren dat bepaalde merkkleding belangrijk was. Jongens en meiden in mijn klas voelden zich duidelijk beter dan anderen omdat zij als eerste het laatste model Nike aan hun voeten hadden. Sommige moesten daar niets van hebben en droegen liever stevige - een beetje militaristische- zwarte veter-laarzen. Met je kleding kun je iets uitdrukken. Vertel je iets over jezelf. Ik weet nog dat ik tijden een vakantie een meisje zag flaneren met een tatoeëring. Ze had een Tribal op haar onderrug laten zetten, vlak boven haar bikini broekje. Tegenwoordig is dat geen uitzondering meer. Er wordt inmiddels denigrerend over een kontgewei gesproken. De tatoe rage is overigens nog in volle gang. Niet zelden zie je armen die van de vingers tot aan de schouders zijn vol gezet. Er is geen centimeter onberoerd gelaten.
-Maar je kunt je ook onderscheiden met gebruiksvoorwerpen. De mobile telefoon is op dit moment misschien wel het belangrijkst. Mijn vader vertelde dat in zijn jeugd het type brommer belangrijk was. Je kon aan de brommer zien of je toemaken had met een nozem, hippie en kakker of een lozer.</p>
-
-<p>Drang om je te onderscheiden
-De maten waarin de mensen zich kunnen onderscheiden heeft te maken met een aantal factoren. De belangrijkste twee zijn vrije tijd en het welvaartsniveau. Hebben mensen een dak boven hun hooft en voldoende te eten dan is er ruimte voor identiteit. Als er dan tijd over is gaan mensen zichzelf en hun omgeving versieren. 
-………… Misschien zijn indianen een mooi voorbeeld. Zij tatoeëerden zichzelf, droegen prachtige kleren en hadden tenten die schitteren versiert waren. Zelfs hun paarden moesten eraan geloven. Zij maakten zo kenbaar dat ze rijk, gelukkig en bijzonder waren……………….</p>
-
-<p>De mens is een inventief wezen. Ze creëert hulpmiddelen en gereedschappen voor het makkelijker maken van handelingen. Ieder wezen heeft primaire levens behoeften, zodat ze in leven blijft. Voedsel, drinkwater en bescherming zoals een dak boven het hoofd behoren hieronder. Als deze primaire levensbehoefte gewaarborgd zijn kunnen mensen zich bezig houden met de secondaire levensbehoeften. Volgens Donald Trump, die zo rijk is dat hij zich geen zorgen meer maakt om secondaire levens behoeften, alles kan kopen, alles al heeft, houd zich vooral bezig met zijn gezondheid, verteld hij in een interview met magazine Times 1996. Donald Trump is eigenaar van een onder andere eigenaar van een hotel, heel lux, heel duur het Trump hotel. Personal branding is de praktijk van mensen die zichzelf en hun carrière als merken marketing. Hoewel eerdere zelfhulp technieken waren over zelfverbetering, de personal-branding-concept suggereert in plaats dat succes komt van zelf-verpakking. De term wordt verondersteld te zijn voor het eerst gebruikt en besproken in een 1997 artikel van Tom Peters. [2] Personal Branding is in wezen het lopende proces van de oprichting van een voorgeschreven afbeelding of indruk in de geest van anderen over een persoon, groep of organisatie. [3] Personal branding gaat vaak gepaard met de toepassing van zijn naam aan verschillende producten. Bijvoorbeeld, de beroemdheid vastgoed mogul Donald Trump maakt gebruik van zijn achternaam uitgebreid over zijn gebouwen en op de producten die hij onderschrijft (bijv Trump Steaks).</p>
-
-<p>Conclusie
-Als welvaart en tijd een factor zijn dat heeft Customisable Design een fantastische toekomst.
-Mensen gaan steeds minder werken voor hun geld en de welvaart lijkt voorlopig gewaarborgd.</p>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<pre><code>    DELETED
-</code></pre>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<p>Bodybuilding
-Wespentaille
-Japanse voetjes
-Pruiken
-Plastische chirurgie
-Nek ringen
-Lip schotel
-Make-up
-Tatoeage
-Scarification
-Harly Davidson
-Hotrod
-Auto</p>
-
-<p>Indianen
-Eskimo’s
-Hinderlopen</p>
-
-<p>Voorbeelden van Customisable Design
-Hema fotoboek
-Shirt by hand
-Custom bikes service
-Wrap my car
-design your own fiat 500</p>
-
-<p>Ultime vormen van Customisable Design
-3D print service
-Design your own house</p>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<pre><code>    DETAILS
-</code></pre>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<p>14 November 2014
-Thesis Draft  by Tim van Remundt
-Subject: Customisable (graphic) design.</p>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<pre><code>    SOURCES
-</code></pre>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<p>Sourses:
--  Tegenlicht aflevering, De nieuwe makers
--  Tegenlicht aflevering, <a href="http://tegenlicht.vpro.nl/afleveringen/2014-2015/de-nieuwe-makers.html">Gratis geld</a>
--  Ted Talk, Ken Robinson
--  Print the legend, Luis Lopez, J. Clay Tweel
--  VideoGame the movie, Jeremy Snead</p>
-
-<p>Boeks,
--  Understanding design, Kees Dorst
--  Dutch Design, Toon Lauwen.
--  Het Kant en klaren huis, Daan bakker en Christian Rapp
--  Everyone is a Designer, in the Age of Social Media, Mieke Gerritsen
--  Time Magazin, 2 feb 1996</p>
-
-<p>Internet.
--  <a href="http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox">http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox</a>
--  <a href="http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender)">http://nl.wikipedia.org/wiki/Radio_Veronica_(zeezender)</a></p>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<pre><code>    DELETED
-</code></pre>
-
-<p>———————————————————————————————————————————————————————————</p>
-
-<h2>Technisch vooruitgang</h2>
-
-<p>We leven in een tijd waar de technologie ons leven veranderd. Fotografie bijvoorbeeld, is toegankelijk voor iedereen, terwijl dit vroeger een heel technisch beroep was. Het bereken van de belichting en de chemische processen voor het ontwikkelen van de foto in de donkere kamer vergde enige studies. Reisde je honderd jaar geleden nog naar een fotograaf in een grote stad voor een portret of een familiefoto. Vandaag de dag heeft iedere mobile telefoon wel een fotocamera standaard ingebouwd. Nu vraag je de buurman of gebruik je de zelfontspanner van je camera of telefoon om een groepsfoto te maken. De techniek in de camera zorgt ervoor dat de kleuren sprankelend zijn, de juiste belichting en scherpte scherpte zijn ingesteld. Het nemen van een foto is een kwestie van een druk op een knop. Het is aan jou als maker of de foto interessant of de moeite waard is. Ben je bereid er energie in de stoppen, heb je een kleinbeetje inzicht, ben je creatief. Technisch kan er niets meer misgaan en het maken van een foto kost helemaal niets. </p>
-
-<p>Techniek wordt toegankelijker voor iedereen. Het verschil tussen professioneel en consument wordt steeds kleiner door alle technische hulpmiddelen. Technologie is en wordt makkelijke om te gebruiken. Als techniek geen rol meer speelt, kunnen mensen zich dan makkelijker creatief onderscheiden en ontwikkelen?</p>
-
-<p>De mens is een inventief wezen. Ze creëert hulpmiddelen en gereedschappen voor het makkelijker maken van handelingen. Ieder wezen heeft primaire levens behoeften, zodat ze in leven blijft. Voedsel, drinkwater en bescherming zoals een dak boven het hoofd behoren hieronder. Als deze primaire levensbehoefte gewaarborgd zijn kunnen mensen zich bezig houden met de secondaire levensbehoeften. Volgens Donald Trump, die zo rijk is dat hij zich geen zorgen meer maakt om secondaire levens behoeften, alles kan kopen, alles al heeft, houd zich vooral bezig met zijn gezondheid, verteld hij in een interview met magazine Times 1996. </p>
-    </body>
+</body>
 </html>
